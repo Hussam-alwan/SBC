@@ -10,7 +10,7 @@ public class Employee {
     private String firstName;
     private String lastName;
     private double salary;
-    
+
 
     @Override
     public String toString() {
