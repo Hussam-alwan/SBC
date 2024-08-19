@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/demo_db
+    Username: postgres
+    password: admin
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop #data definition language which allows us to update our database when we start the application
+    show-sql: true # we will see the query in console
+    properties:
+      hibernate:
+        format_sql: true
+    database: postgresql # not important to write with, but it told the app which DB will deal with
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
