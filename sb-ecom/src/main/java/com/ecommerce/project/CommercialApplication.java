@@ -1,13 +1,13 @@
-package com.ecommerce.sb_ecom.preject;
+package com.ecommerce.project;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SbEcomApplication {
+public class CommercialApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SbEcomApplication.class, args);
+		SpringApplication.run(CommercialApplication.class, args);
 	}
 
 }
