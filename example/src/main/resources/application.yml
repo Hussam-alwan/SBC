@@ -6,7 +6,7 @@ spring:
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: create-drop #data definition language which allows us to update our database when we start the application
+      ddl-auto: update #data definition language which allows us to update our database when we start the application
     show-sql: true # we will see the query in console
     properties:
       hibernate:

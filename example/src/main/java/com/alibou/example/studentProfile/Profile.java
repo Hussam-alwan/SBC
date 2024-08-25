@@ -1,5 +1,6 @@
-package com.alibou.example.model;
+package com.alibou.example.studentProfile;
 
+import com.alibou.example.student.model.Student;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,8 +12,12 @@ public class Profile {
 
     @Id
     @GeneratedValue
-    private int profile_id;
-    private String Bio;
+    private Integer id;
+    private String bio;
+
+    public Profile(String bie){
+        this.bio=bie;
+    }
 
     @OneToOne
     @JoinColumn(name = "student_id")
