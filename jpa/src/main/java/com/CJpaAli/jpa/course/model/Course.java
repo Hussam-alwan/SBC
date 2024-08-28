@@ -1,40 +1,28 @@
 package com.CJpaAli.jpa.course.model;
 
 import com.CJpaAli.jpa.author.model.Author;
+import com.CJpaAli.jpa.base.BaseEntity;
 import com.CJpaAli.jpa.section.model.Section;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import java.util.List;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 
 @Entity
-public class Course {
-    @Id
-    @GeneratedValue
-    private Integer id;
+public class Course extends BaseEntity {
+
     private String name;
     private String description;
-    @ManyToMany
-    @JoinTable(
-            name = "author_course",
-            joinColumns = {
-                    @JoinColumn(name = "course_id")// hold the primary key for the owner of the relationship
-            },
-            inverseJoinColumns = {
-                    @JoinColumn(name = "author_id")
-            }
-
-    )
-    private List<Author> authors; // <>
-
     @OneToMany(mappedBy = "course")
     private List<Section> sections;
 }
