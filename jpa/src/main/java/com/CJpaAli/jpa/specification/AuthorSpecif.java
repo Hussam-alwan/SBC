@@ -12,7 +12,7 @@ public class AuthorSpecif {
                 Root<Author> root,
                 CriteriaQuery<?> query,
                 CriteriaBuilder builder
-                )->{
+                )-> {
             if(age<0) return null;
             return builder.equal(root.get("age"),age);
         };
