@@ -19,8 +19,8 @@ public class SchoolController {
     public SchoolDto create(@RequestBody SchoolDto dto){
         return schoolService.saveSchool(dto);
     }
-
     @GetMapping("/schools")
+    //@ResponseStatus(HttpStatus.OK)
     public List<SchoolDto> findAll(){
         return schoolService.findAll();
     }

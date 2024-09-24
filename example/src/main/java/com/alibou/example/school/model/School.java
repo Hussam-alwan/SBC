@@ -8,8 +8,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import java.util.List;
 
+import java.util.List;
 @Data
 @NoArgsConstructor
 @Entity
@@ -17,6 +17,9 @@ public class School {
     @Id
     @GeneratedValue
     private Integer id;
+
+    //@JsonProperty("name")
+    //@Column(name = "name")
     private String name;
 
     @OneToMany(mappedBy = "school")
@@ -31,7 +34,4 @@ public class School {
     public School(String name) {
         this.name = name;
     }
-
-
-
 }
