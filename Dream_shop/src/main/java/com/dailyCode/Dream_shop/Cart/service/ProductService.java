@@ -1,10 +1,10 @@
-package com.dailyCode.Dream_shop.Product.service;
+package com.dailyCode.Dream_shop.Cart.service;
 
-import com.dailyCode.Dream_shop.Product.Dto.ProductDto;
+import com.dailyCode.Dream_shop.Cart.Dto.ProductDto;
+import com.dailyCode.Dream_shop.Cart.mapper.ProductMapper;
+import com.dailyCode.Dream_shop.Cart.model.Product;
+import com.dailyCode.Dream_shop.Cart.repository.ProductRepo;
 import com.dailyCode.Dream_shop.Product.Dto.ProductResponseDto;
-import com.dailyCode.Dream_shop.Product.mapper.ProductMapper;
-import com.dailyCode.Dream_shop.Product.model.Product;
-import com.dailyCode.Dream_shop.Product.repository.ProductRepo;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

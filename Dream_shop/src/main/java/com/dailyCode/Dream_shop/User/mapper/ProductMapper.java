@@ -1,8 +1,8 @@
-package com.dailyCode.Dream_shop.Product.mapper;
+package com.dailyCode.Dream_shop.User.mapper;
 
-import com.dailyCode.Dream_shop.Product.Dto.ProductDto;
 import com.dailyCode.Dream_shop.Product.Dto.ProductResponseDto;
-import com.dailyCode.Dream_shop.Product.model.Product;
+import com.dailyCode.Dream_shop.User.Dto.ProductDto;
+import com.dailyCode.Dream_shop.User.model.Product;
 import org.springframework.stereotype.Service;
 
 @Service

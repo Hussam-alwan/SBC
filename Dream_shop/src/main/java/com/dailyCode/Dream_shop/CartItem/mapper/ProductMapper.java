@@ -1,14 +1,14 @@
-package com.dailyCode.Dream_shop.Product.mapper;
+package com.dailyCode.Dream_shop.CartItem.mapper;
 
-import com.dailyCode.Dream_shop.Product.Dto.ProductDto;
+import com.dailyCode.Dream_shop.CartItem.Dto.ProductDto;
+import com.dailyCode.Dream_shop.CartItem.model.CartItem;
 import com.dailyCode.Dream_shop.Product.Dto.ProductResponseDto;
-import com.dailyCode.Dream_shop.Product.model.Product;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ProductMapper {
 
-    public ProductResponseDto toProductResponseDto(Product product) {
+    public ProductResponseDto toProductResponseDto(CartItem product) {
 
         return new ProductResponseDto(
                 product.getId(),
@@ -22,9 +22,9 @@ public class ProductMapper {
         );
      }
 
-    public Product toProduct(ProductDto productDto) {
+    public CartItem toProduct(ProductDto productDto) {
 
-        Product product = new Product();
+        CartItem product = new CartItem();
         product.setName(productDto.name());
         product.setBrand(productDto.brand());
         product.setPrice(productDto.price());

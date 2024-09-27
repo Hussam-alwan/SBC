@@ -1,10 +1,10 @@
-package com.dailyCode.Dream_shop.Product.service;
+package com.dailyCode.Dream_shop.CartItem.service;
 
-import com.dailyCode.Dream_shop.Product.Dto.ProductDto;
+import com.dailyCode.Dream_shop.CartItem.Dto.ProductDto;
+import com.dailyCode.Dream_shop.CartItem.mapper.ProductMapper;
+import com.dailyCode.Dream_shop.CartItem.model.CartItem;
+import com.dailyCode.Dream_shop.CartItem.repository.ProductRepo;
 import com.dailyCode.Dream_shop.Product.Dto.ProductResponseDto;
-import com.dailyCode.Dream_shop.Product.mapper.ProductMapper;
-import com.dailyCode.Dream_shop.Product.model.Product;
-import com.dailyCode.Dream_shop.Product.repository.ProductRepo;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ public class ProductService {
     private final ProductMapper productMapper;
 
     public ProductResponseDto getProductById(Long id){
-        Product product= productRepo.findById(id).orElseThrow(() -> new EntityNotFoundException("Product not found"));
+        CartItem product= productRepo.findById(id).orElseThrow(() -> new EntityNotFoundException("Product not found"));
         return productMapper.toProductResponseDto(product);
     }
 
@@ -29,7 +29,7 @@ public class ProductService {
         if (productRepo.findById(id).isEmpty()) {
             throw new EntityNotFoundException("Product not found");
         }
-        Product product=productMapper.toProduct(productDto);
+        CartItem product=productMapper.toProduct(productDto);
         product.setId(id);
         productRepo.save(product);
         return productMapper.toProductResponseDto(product);
