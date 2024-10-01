@@ -1,10 +1,9 @@
 package com.dailyCode.Dream_shop.OrderItem.repository;
-
-import com.dailyCode.Dream_shop.OrderItem.model.Product;
+import com.dailyCode.Dream_shop.OrderItem.model.OrderItem;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ProductRepo extends JpaRepository<Product,Long> {
+public interface OrderItemRepo extends JpaRepository<OrderItem,Long> {
 
 }

@@ -1,4 +1,5 @@
 package com.dailyCode.Dream_shop.Category.Dto;
 
-public record CategoryDto() {
-}
+public record CategoryDto(
+        String name
+) {}

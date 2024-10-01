@@ -1,24 +1,22 @@
 package com.dailyCode.Dream_shop.Product.mapper;
 
 import com.dailyCode.Dream_shop.Product.Dto.ProductDto;
-import com.dailyCode.Dream_shop.Product.Dto.ProductResponseDto;
+import com.dailyCode.Dream_shop.Product.Dto.ProductRequestDto;
 import com.dailyCode.Dream_shop.Product.model.Product;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ProductMapper {
 
-    public ProductResponseDto toProductResponseDto(Product product) {
+    public ProductRequestDto toProductResponseDto(Product product) {
 
-        return new ProductResponseDto(
-                product.getId(),
+        return new ProductRequestDto(
                 product.getName(),
                 product.getBrand(),
                 product.getPrice(),
                 product.getInventory(),
                 product.getDescription(),
-                product.getCategory(),
-                null
+                product.getCategory().getId()
         );
      }
 

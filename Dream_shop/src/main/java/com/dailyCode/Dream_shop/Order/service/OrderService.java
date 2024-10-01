@@ -1,10 +1,11 @@
-package com.dailyCode.Dream_shop.Product.service;
+package com.dailyCode.Dream_shop.Order.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+
 @RequiredArgsConstructor
 @Service
-public class ProductService {
+public class OrderService {
 
 }

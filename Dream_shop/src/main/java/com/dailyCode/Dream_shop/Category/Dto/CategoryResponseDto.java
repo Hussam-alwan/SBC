@@ -1,4 +1,7 @@
 package com.dailyCode.Dream_shop.Category.Dto;
 
-public record CategoryResponseDto() {
+public record CategoryResponseDto(
+        Long id,
+        String name
+) {
 }

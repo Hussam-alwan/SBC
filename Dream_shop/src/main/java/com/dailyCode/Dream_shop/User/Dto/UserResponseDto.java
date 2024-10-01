@@ -5,7 +5,7 @@ import com.dailyCode.Dream_shop.Order.Dto.OrderDto;
 
 import java.util.List;
 
-public record UserDto(
+public record UserResponseDto(
         Long id,
         String firstName,
         String lastName,
