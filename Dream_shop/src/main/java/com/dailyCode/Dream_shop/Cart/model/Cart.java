@@ -24,11 +24,29 @@ public class Cart {
     private BigDecimal totalAmount=BigDecimal.ZERO;
 
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<CartItem> cartItems = new HashSet<>();
+    private Set<CartItem> item = new HashSet<>();
     
     @OneToOne
     @JoinColumn
     private User user;
 
+    public void addItem(CartItem cartItem){
+        this.item.add(cartItem);
+        cartItem.setCart(this);
+        updateTotalAmount();
+    }
+    public void removeItem(CartItem cartItem){
+        this.item.remove(cartItem);
+        cartItem.setCart(null);
+        updateTotalAmount();
+    }
 
+    public void updateTotalAmount() {
+        this.totalAmount= item.stream().map(item ->{
+            BigDecimal unitPrice = item.getUnitPrice();
+            if(unitPrice == null)
+                return BigDecimal.ZERO;
+            return unitPrice.multiply(BigDecimal.valueOf(item.getQuantity()));
+        }).reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
 }

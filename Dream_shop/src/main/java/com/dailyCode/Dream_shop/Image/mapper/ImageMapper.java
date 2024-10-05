@@ -11,6 +11,7 @@ public class ImageMapper {
       return new ImageResponseDto(
         image.getId(),
         image.getFileName(),
+        image.getFileType(),
         image.getDownloadUrl()
       );
     }

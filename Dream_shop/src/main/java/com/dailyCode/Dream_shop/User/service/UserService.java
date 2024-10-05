@@ -17,19 +17,29 @@ public class UserService {
 
     public UserResponseDto findUserById(Long id){
         User user= userRepo.findById(id).orElseThrow(() -> new EntityNotFoundException("User not found"));
-        return userMapper.toUserDto(user);
+        return userMapper.toUserResponseDto(user);
     }
 
     public UserResponseDto findUserByEmail(String email){
         User user= userRepo.findByEmail(email);
-        if(user ==null) throw new EntityNotFoundException("User Not Foun d");
-        return userMapper.toUserDto(user);
+        if(user ==null) throw new EntityNotFoundException("User Not Found");
+        return userMapper.toUserResponseDto(user);
     }
     public UserResponseDto createUser(UserRequestDto userRequestDto){
         if(userRepo.existsByEmail(userRequestDto.email())) throw new EntityNotFoundException("User Already Exists");
         User user= userMapper.toUser(userRequestDto);
         userRepo.save(user);
-        return userMapper.toUserDto(user);
+        return userMapper.toUserResponseDto(user);
+    }
+    public UserResponseDto UpdateUser(UserRequestDto requestDto,Long id){
+        User user= userMapper.toUser(requestDto);
+        user.setId(id);
+        userRepo.save(user);
+        return userMapper.toUserResponseDto(user);
+    }
+    public void deleteUser(Long id){
+        if(!userRepo.existsById(id)) throw new EntityNotFoundException("User Not Found");
+        userRepo.deleteById(id);
     }
     
 }

@@ -1,19 +1,17 @@
 package com.dailyCode.Dream_shop.Product.Dto;
-
-import com.dailyCode.Dream_shop.Category.model.Category;
-import com.dailyCode.Dream_shop.Image.Dto.ImageDto;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 public record ProductDto(
-        Long id,
-        String name,
-        String brand,
-        BigDecimal price,
-        Integer inventory,
-        String description,
-        Category category,
-        List<ImageDto> images
+       @NotEmpty String name,
+       @NotEmpty String brand,
+       @Positive BigDecimal price,
+       @PositiveOrZero Integer inventory,
+       @NotEmpty String description,
+       @NotNull Long categoryId
 ) {
 }

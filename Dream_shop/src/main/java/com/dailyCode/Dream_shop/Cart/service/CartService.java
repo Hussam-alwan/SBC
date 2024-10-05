@@ -1,7 +1,5 @@
 package com.dailyCode.Dream_shop.Cart.service;
 
-import com.dailyCode.Dream_shop.Cart.Dto.CartDto;
-import com.dailyCode.Dream_shop.Cart.mapper.CartMapper;
 import com.dailyCode.Dream_shop.Cart.model.Cart;
 import com.dailyCode.Dream_shop.Cart.repository.CartRepo;
 import com.dailyCode.Dream_shop.CartItem.repository.CartItemRepo;
@@ -11,31 +9,48 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.concurrent.atomic.AtomicLong;
 
-@RequiredArgsConstructor
 @Service
+@RequiredArgsConstructor
 public class CartService {
-    private final CartMapper cartMapper;
-    private final CartRepo cartRepo;
-    private final CartItemRepo cartItemRepo;
+    private final CartRepo cartRepository;
+    private final CartItemRepo cartItemRepository;
+    private final AtomicLong cartIdGenerator = new AtomicLong(0);
 
-    public CartDto getCartById(long id) {
-        Cart cart = cartRepo.findById(id).orElseThrow(() -> new EntityNotFoundException("Cart not found"));
-        BigDecimal totalAmount =cart.getTotalAmount();
+
+    public Cart getCart(Long id) {
+        Cart cart = cartRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Cart not found"));
+        BigDecimal totalAmount = cart.getTotalAmount();
         cart.setTotalAmount(totalAmount);
-        cartRepo.save(cart);
-        return cartMapper.toCartDto(cart);
+        return cartRepository.save(cart);
     }
+
 
     @Transactional
-    public void clearCart(long id) {
-        Cart cart = cartRepo.findById(id).orElseThrow(() -> new EntityNotFoundException("Cart not found"));
-        cartItemRepo.deleteAllByCartId(id);
-        cart.getCartItems().clear();
-        cartRepo.deleteById(id);
+    public void clearCart(Long id) {
+        Cart cart = getCart(id);
+        cartItemRepository.deleteAllByCartId(id);
+        cart.getItem().clear();
+        cartRepository.deleteById(id);
+
     }
-    public BigDecimal getTotalPrice(Long id){
-        Cart cart =cartRepo.findById(id).orElseThrow(()-> new EntityNotFoundException("Cart not found"));
+
+    public BigDecimal getTotalPrice(Long id) {
+        Cart cart = getCart(id);
         return cart.getTotalAmount();
+    }
+
+    public Long initializeNewCart() {
+        Cart newCart = new Cart();
+        Long newCartId = cartIdGenerator.incrementAndGet();
+        newCart.setId(newCartId);
+        return cartRepository.save(newCart).getId();
+
+    }
+
+    public Cart getCartByUserId(Long userId) {
+        return cartRepository.findByUserId(userId);
     }
 }
