@@ -22,7 +22,7 @@ public class Progress {
 
     @Id
     @Column(nullable = false, updatable = false)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long progressId;
 
     @Column(nullable = false)
