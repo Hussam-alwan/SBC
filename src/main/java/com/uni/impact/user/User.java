@@ -26,7 +26,7 @@ public class User {
 
     @Id
     @Column(updatable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long userId;
 
     @Column(length = 50)

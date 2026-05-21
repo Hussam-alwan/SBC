@@ -27,7 +27,7 @@ public class Campaign {
 
     @Id
     @Column(updatable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long campaignId;
 
     @Column(nullable = false)
