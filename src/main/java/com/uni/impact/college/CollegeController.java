@@ -22,6 +22,11 @@ public class CollegeController {
         return ResponseEntity.ok(collegeService.findAll(pageable).map(collegeMapper::toDto));
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<Page<CollegeDTO>> search(@RequestParam(required = false) String q, Pageable pageable) {
+        return ResponseEntity.ok(collegeService.search(q, pageable).map(collegeMapper::toDto));
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<CollegeDTO> findById(@PathVariable Long id) {
         return ResponseEntity.ok(collegeMapper.toDto(collegeService.findById(id)));
