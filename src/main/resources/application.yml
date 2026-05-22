@@ -27,6 +27,10 @@ error:
     full-stacktrace-http-statuses: 5xx
     log-levels:
       5xx: ERROR
+    http-statuses:
+      java.lang.IllegalArgumentException: BAD_REQUEST
+    codes:
+      java.lang.IllegalArgumentException: BAD_REQUEST
 
 springdoc:
   pathsToMatch: /, /api/**
