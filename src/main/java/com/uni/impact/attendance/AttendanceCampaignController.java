@@ -18,16 +18,14 @@ public class AttendanceCampaignController {
 
     @PostMapping("/{id}/attendance")
     public ResponseEntity<AttendanceResponseDTO> createAttendance(@PathVariable Long id, @RequestBody AttendanceRequestDTO attendanceDTO) {
-        attendanceDTO.setCampaign(id);
-        Attendance created = attendanceService.create(attendanceDTO);
+        Attendance created = attendanceService.create(id, attendanceDTO);
         return ResponseEntity.created(URI.create("/api/v1/attendances/" + created.getAttendanceId()))
                 .body(attendanceMapper.toDto(created));
     }
 
     @PostMapping("/{id}/attendance/bulk")
     public ResponseEntity<Void> createAttendanceBulk(@PathVariable Long id, @RequestBody java.util.List<AttendanceRequestDTO> attendanceList) {
-        attendanceList.forEach(a -> a.setCampaign(id));
-        attendanceService.createBulk(attendanceList);
+        attendanceService.createBulk(id, attendanceList);
         return ResponseEntity.status(201).build();
     }
 

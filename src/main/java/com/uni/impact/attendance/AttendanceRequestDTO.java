@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 
 @Getter
@@ -23,12 +22,8 @@ public class AttendanceRequestDTO {
 
     private String notes;
 
-    private LocalDateTime recordedAt;
-
     @NotNull
     private Long student;
-
-    private Long campaign;
 
     @NotNull
     private Long recordedBy;

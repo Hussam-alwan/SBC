@@ -15,6 +15,7 @@ public interface AttendanceMapper {
     AttendanceResponseDTO toDto(Attendance entity);
 
     @Mapping(target = "attendanceId", ignore = true)
+    @Mapping(target = "recordedAt", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
     @Mapping(target = "student", ignore = true)
@@ -23,6 +24,7 @@ public interface AttendanceMapper {
     Attendance toEntity(AttendanceRequestDTO dto);
 
     @Mapping(target = "attendanceId", ignore = true)
+    @Mapping(target = "recordedAt", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
     @Mapping(target = "student", ignore = true)
