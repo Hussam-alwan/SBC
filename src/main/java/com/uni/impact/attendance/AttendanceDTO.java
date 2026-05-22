@@ -37,10 +37,14 @@ public class AttendanceDTO {
     @NotNull
     private Long student;
 
+    private String studentName;
+
     @NotNull
     private Long campaign;
 
     @NotNull
     private Long recordedBy;
+
+    private String recordedByName;
 
 }

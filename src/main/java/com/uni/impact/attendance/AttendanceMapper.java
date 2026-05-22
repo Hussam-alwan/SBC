@@ -8,8 +8,10 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 public interface AttendanceMapper {
 
     @Mapping(target = "student", source = "student.userId")
+    @Mapping(target = "studentName", expression = "java(entity.getStudent() == null ? null : (entity.getStudent().getFirstName() + \" \" + entity.getStudent().getLastName()))")
     @Mapping(target = "campaign", source = "campaign.campaignId")
     @Mapping(target = "recordedBy", source = "recordedBy.userId")
+    @Mapping(target = "recordedByName", expression = "java(entity.getRecordedBy() == null ? null : (entity.getRecordedBy().getFirstName() + \" \" + entity.getRecordedBy().getLastName()))")
     AttendanceDTO toDto(Attendance entity);
 
     @Mapping(target = "student", ignore = true)
