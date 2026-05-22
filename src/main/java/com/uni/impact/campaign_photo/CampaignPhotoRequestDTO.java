@@ -10,9 +10,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public class CampaignPhotoDTO {
-
-    private Long photoId;
+public class CampaignPhotoRequestDTO {
 
     @NotNull
     @Size(max = 500)
@@ -20,12 +18,6 @@ public class CampaignPhotoDTO {
 
     @NotNull
     private LocalDateTime uploadedAt;
-
-    @NotNull
-    private LocalDateTime createdAt;
-
-    @NotNull
-    private LocalDateTime updatedAt;
 
     @NotNull
     private Long campaign;

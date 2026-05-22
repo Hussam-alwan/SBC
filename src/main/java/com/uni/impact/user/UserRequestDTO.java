@@ -7,14 +7,10 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-
 
 @Getter
 @Setter
-public class UserDTO {
-
-    private Long userId;
+public class UserRequestDTO {
 
     @Size(max = 50)
     private String studentNumber;
@@ -32,21 +28,14 @@ public class UserDTO {
     @Email
     private String email;
 
-    @Size(max = 10,min = 10)
+    @Size(max = 10, min = 10)
     private String phone;
 
     private Integer academicYear;
 
-
     @NotNull
     @JsonProperty("isBanned")
     private Boolean isBanned;
-
-    @NotNull
-    private LocalDateTime createdAt;
-
-    @NotNull
-    private LocalDateTime updatedAt;
 
     @NotNull
     private Long college;

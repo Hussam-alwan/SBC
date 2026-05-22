@@ -18,12 +18,12 @@ public class CampaignPhotoController {
     private final CampaignPhotoMapper campaignPhotoMapper;
 
     @GetMapping
-    public ResponseEntity<Page<CampaignPhotoDTO>> findAll(Pageable pageable) {
+    public ResponseEntity<Page<CampaignPhotoResponseDTO>> findAll(Pageable pageable) {
         return ResponseEntity.ok(campaignPhotoService.findAll(pageable).map(campaignPhotoMapper::toDto));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CampaignPhotoDTO> findById(@PathVariable Long id) {
+    public ResponseEntity<CampaignPhotoResponseDTO> findById(@PathVariable Long id) {
         return ResponseEntity.ok(campaignPhotoMapper.toDto(campaignPhotoService.findById(id)));
     }
     // Creation / update / delete are handled via campaign-scoped endpoints in CampaignPhotoCampaignController

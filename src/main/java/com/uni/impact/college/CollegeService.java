@@ -34,16 +34,13 @@ public class CollegeService {
     }
 
     @Transactional
-    public College create(final CollegeDTO collegeDTO) {
-        if (collegeDTO.getCollegeId() != null) {
-            throw new IllegalArgumentException("A new college cannot already have an ID");
-        }
+    public College create(final CollegeRequestDTO collegeDTO) {
         College college = collegeMapper.toEntity(collegeDTO);
         return collegeRepository.save(college);
     }
 
     @Transactional
-    public College update(final Long collegeId, final CollegeDTO collegeDTO) {
+    public College update(final Long collegeId, final CollegeRequestDTO collegeDTO) {
         College college = collegeRepository.findById(collegeId)
                 .orElseThrow(NotFoundException::new);
         collegeMapper.updateEntity(college, collegeDTO);

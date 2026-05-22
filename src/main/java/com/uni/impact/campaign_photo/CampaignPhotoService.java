@@ -45,10 +45,7 @@ public class CampaignPhotoService {
     }
 
     @Transactional
-    public CampaignPhoto create(final CampaignPhotoDTO campaignPhotoDTO) {
-        if (campaignPhotoDTO.getPhotoId() != null) {
-            throw new IllegalArgumentException("A new campaign photo cannot already have an ID");
-        }
+    public CampaignPhoto create(final CampaignPhotoRequestDTO campaignPhotoDTO) {
         CampaignPhoto campaignPhoto = campaignPhotoMapper.toEntity(campaignPhotoDTO);
         applyRelations(campaignPhoto, campaignPhotoDTO);
         return campaignPhotoRepository.save(campaignPhoto);
@@ -102,7 +99,7 @@ public class CampaignPhotoService {
     }
 
     @Transactional
-    public CampaignPhoto update(final Long photoId, final CampaignPhotoDTO campaignPhotoDTO) {
+    public CampaignPhoto update(final Long photoId, final CampaignPhotoRequestDTO campaignPhotoDTO) {
         CampaignPhoto campaignPhoto = campaignPhotoRepository.findById(photoId)
                 .orElseThrow(NotFoundException::new);
         campaignPhotoMapper.updateEntity(campaignPhoto, campaignPhotoDTO);
@@ -136,7 +133,7 @@ public class CampaignPhotoService {
         return campaignPhotoRepository.save(campaignPhoto);
     }
 
-    private void applyRelations(final CampaignPhoto campaignPhoto, final CampaignPhotoDTO campaignPhotoDTO) {
+    private void applyRelations(final CampaignPhoto campaignPhoto, final CampaignPhotoRequestDTO campaignPhotoDTO) {
         final Campaign campaign = campaignPhotoDTO.getCampaign() == null ? null : campaignRepository.findById(campaignPhotoDTO.getCampaign())
                 .orElseThrow(() -> new NotFoundException("campaign not found"));
         campaignPhoto.setCampaign(campaign);

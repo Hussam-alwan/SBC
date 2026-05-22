@@ -37,7 +37,7 @@ public class CampaignService {
     }
 
     @Transactional
-    public Campaign patchDetails(final Long campaignId, final CampaignDTO campaignDTO) {
+    public Campaign patchDetails(final Long campaignId, final CampaignRequestDTO campaignDTO) {
         Campaign campaign = campaignRepository.findById(campaignId).orElseThrow(NotFoundException::new);
         // Use mapper which ignores nulls to update only provided fields; do NOT apply relations for details-only
         campaignMapper.updateEntity(campaign, campaignDTO);
@@ -67,17 +67,14 @@ public class CampaignService {
     }
 
     @Transactional
-    public Campaign create(final CampaignDTO campaignDTO) {
-        if (campaignDTO.getCampaignId() != null) {
-            throw new IllegalArgumentException("A new campaign cannot already have an ID");
-        }
+    public Campaign create(final CampaignRequestDTO campaignDTO) {
         Campaign campaign = campaignMapper.toEntity(campaignDTO);
         applyRelations(campaign, campaignDTO);
         return campaignRepository.save(campaign);
     }
 
     @Transactional
-    public Campaign update(final Long campaignId, final CampaignDTO campaignDTO) {
+    public Campaign update(final Long campaignId, final CampaignRequestDTO campaignDTO) {
         Campaign campaign = campaignRepository.findById(campaignId)
                 .orElseThrow(NotFoundException::new);
         campaignMapper.updateEntity(campaign, campaignDTO);
@@ -96,7 +93,7 @@ public class CampaignService {
     }
 
 
-    private void applyRelations(final Campaign campaign, final CampaignDTO campaignDTO) {
+    private void applyRelations(final Campaign campaign, final CampaignRequestDTO campaignDTO) {
         final User proposedBy = campaignDTO.getProposedBy() == null ? null : userRepository.findById(campaignDTO.getProposedBy())
                 .orElseThrow(() -> new NotFoundException("proposedBy not found"));
         campaign.setProposedBy(proposedBy);
