@@ -12,15 +12,21 @@ public interface AttendanceMapper {
     @Mapping(target = "campaign", source = "campaign.campaignId")
     @Mapping(target = "recordedBy", source = "recordedBy.userId")
     @Mapping(target = "recordedByName", expression = "java(entity.getRecordedBy() == null ? null : (entity.getRecordedBy().getFirstName() + \" \" + entity.getRecordedBy().getLastName()))")
-    AttendanceDTO toDto(Attendance entity);
+    AttendanceResponseDTO toDto(Attendance entity);
 
+    @Mapping(target = "attendanceId", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
     @Mapping(target = "student", ignore = true)
     @Mapping(target = "campaign", ignore = true)
     @Mapping(target = "recordedBy", ignore = true)
-    Attendance toEntity(AttendanceDTO dto);
+    Attendance toEntity(AttendanceRequestDTO dto);
 
+    @Mapping(target = "attendanceId", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
     @Mapping(target = "student", ignore = true)
     @Mapping(target = "campaign", ignore = true)
     @Mapping(target = "recordedBy", ignore = true)
-    void updateEntity(@MappingTarget Attendance entity, AttendanceDTO dto);
+    void updateEntity(@MappingTarget Attendance entity, AttendanceRequestDTO dto);
 }

@@ -33,24 +33,24 @@ public class AttendanceService {
     }
 
     @Transactional
-    public Attendance create(final AttendanceDTO attendanceDTO) {
-        if (attendanceDTO.getAttendanceId() != null) {
-            throw new IllegalArgumentException("A new attendance cannot already have an ID");
-        }
+    public Attendance create(final AttendanceRequestDTO attendanceDTO) {
         Attendance attendance = attendanceMapper.toEntity(attendanceDTO);
         applyRelations(attendance, attendanceDTO);
+        if (attendance.getRecordedAt() == null) {
+            attendance.setRecordedAt(java.time.LocalDateTime.now());
+        }
         return attendanceRepository.save(attendance);
     }
 
     @Transactional
-    public void createBulk(final java.util.List<AttendanceDTO> attendanceList) {
-        for (AttendanceDTO dto : attendanceList) {
+    public void createBulk(final java.util.List<AttendanceRequestDTO> attendanceList) {
+        for (AttendanceRequestDTO dto : attendanceList) {
             create(dto);
         }
     }
 
     @Transactional
-    public Attendance update(final Long attendanceId, final AttendanceDTO attendanceDTO) {
+    public Attendance update(final Long attendanceId, final AttendanceRequestDTO attendanceDTO) {
         Attendance attendance = attendanceRepository.findById(attendanceId)
                 .orElseThrow(NotFoundException::new);
         attendanceMapper.updateEntity(attendance, attendanceDTO);
@@ -74,7 +74,7 @@ public class AttendanceService {
     }
 
 
-    private void applyRelations(final Attendance attendance, final AttendanceDTO attendanceDTO) {
+    private void applyRelations(final Attendance attendance, final AttendanceRequestDTO attendanceDTO) {
         final User student = attendanceDTO.getStudent() == null ? null : userRepository.findById(attendanceDTO.getStudent())
                 .orElseThrow(() -> new NotFoundException("student not found"));
         attendance.setStudent(student);
