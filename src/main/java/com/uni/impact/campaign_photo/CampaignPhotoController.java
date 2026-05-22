@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +27,10 @@ public class CampaignPhotoController {
     public ResponseEntity<CampaignPhotoResponseDTO> findById(@PathVariable Long id) {
         return ResponseEntity.ok(campaignPhotoMapper.toDto(campaignPhotoService.findById(id)));
     }
-    // Creation / update / delete are handled via campaign-scoped endpoints in CampaignPhotoCampaignController
-    // (POST /api/v1/campaigns/{id}/photos and GET /api/v1/campaigns/{id}/photos)
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        campaignPhotoService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 }

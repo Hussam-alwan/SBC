@@ -1,8 +1,12 @@
 package com.uni.impact.campaign;
 
+import com.uni.impact.application.ApplicationRepository;
+import com.uni.impact.attendance.AttendanceRepository;
 import com.uni.impact.campaign.dto.CampaignSearchCriteria;
+import com.uni.impact.campaign_photo.CampaignPhotoService;
 import com.uni.impact.category.Category;
 import com.uni.impact.category.CategoryRepository;
+import com.uni.impact.progress.ProgressRepository;
 import com.uni.impact.user.User;
 import com.uni.impact.user.UserRepository;
 import com.uni.impact.util.NotFoundException;
@@ -21,6 +25,10 @@ public class CampaignService {
     private final UserRepository userRepository;
     private final CategoryRepository categoryRepository;
     private final CampaignMapper campaignMapper;
+    private final CampaignPhotoService campaignPhotoService;
+    private final ApplicationRepository applicationRepository;
+    private final AttendanceRepository attendanceRepository;
+    private final ProgressRepository progressRepository;
 
     public Page<Campaign> findAll(Pageable pageable) {
         return campaignRepository.findAll(pageable);
@@ -82,13 +90,20 @@ public class CampaignService {
         return campaignRepository.save(campaign);
     }
 
+    @Transactional
     public void delete(final Long campaignId) {
         final Campaign campaign = campaignRepository.findById(campaignId)
                 .orElseThrow(NotFoundException::new);
         try {
-                campaignRepository.delete(campaign);
-             } catch (final Exception e) {
-                throw new IllegalStateException("campaign could not be deleted");
+            // Cascade: remove dependents before deleting the campaign so FK constraints are satisfied.
+            // Photos go first because they reference both campaign and progress.
+            campaignPhotoService.deleteByCampaign(campaignId);
+            applicationRepository.deleteByCampaignCampaignId(campaignId);
+            attendanceRepository.deleteByCampaignCampaignId(campaignId);
+            progressRepository.deleteByCampaignCampaignId(campaignId);
+            campaignRepository.delete(campaign);
+        } catch (final Exception e) {
+            throw new IllegalStateException("campaign could not be deleted", e);
         }
     }
 
