@@ -1,4 +1,5 @@
 package com.uni.impact.user;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
@@ -14,6 +15,7 @@ public interface UserMapper {
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
     @Mapping(target = "college", ignore = true)
+    @Mapping(target = "password", ignore = true)
     @Mapping(target = "proposedByCampaigns", ignore = true)
     @Mapping(target = "approvedByCampaigns", ignore = true)
     @Mapping(target = "managedByCampaigns", ignore = true)
@@ -29,6 +31,7 @@ public interface UserMapper {
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
     @Mapping(target = "college", ignore = true)
+    @Mapping(target = "password", ignore = true)
     @Mapping(target = "proposedByCampaigns", ignore = true)
     @Mapping(target = "approvedByCampaigns", ignore = true)
     @Mapping(target = "managedByCampaigns", ignore = true)

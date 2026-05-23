@@ -1,7 +1,46 @@
 {
   "permissions": {
     "allow": [
-      "Bash(./mvnw compile *)"
+      "Bash(./mvnw compile *)",
+      "Bash(./mvnw.cmd -q compile)",
+      "Bash(./mvnw.cmd compile *)",
+      "Bash(./mvnw.cmd clean *)",
+      "PowerShell(.\\\\mvnw.cmd -q compile -DskipTests 2>&1 | Select-Object -Last 120)",
+      "PowerShell(.\\\\mvnw.cmd compile -DskipTests 2>&1 | Select-Object -Last 200)",
+      "PowerShell(.\\\\mvnw.cmd clean compile -DskipTests 2>&1 | Select-Object -Last 200)",
+      "PowerShell(.\\\\mvnw.cmd clean compile -DskipTests 2>&1 | Select-Object -Last 60)",
+      "Bash(git status *)",
+      "Bash(curl -s -w \"\\\\nHTTP %{http_code}\\\\n\" http://localhost:8080/api/v1/colleges)",
+      "Bash(curl -s -w \"\\\\nHTTP %{http_code}\\\\n\" -X POST http://localhost:8080/api/v1/colleges -H \"Content-Type: application/json\" -d '{\"name\":\"Test College\",\"description\":\"Test desc\"}')",
+      "Bash(curl -s -w \"\\\\nHTTP %{http_code}\\\\n\" -X POST http://localhost:8080/api/v1/categories -H \"Content-Type: application/json\" -d '{\"name\":\"Environment\"}')",
+      "Bash(curl -s -w \"\\\\nHTTP %{http_code}\\\\n\" -X PUT http://localhost:8080/api/v1/colleges/101 -H \"Content-Type: application/json\" -d '{\"name\":\"Renamed College\",\"description\":\"Updated\"}')",
+      "Bash(curl -s -w \"\\\\nHTTP %{http_code}\\\\n\" -X POST http://localhost:8080/api/v1/colleges -H \"Content-Type: application/json\" -d '{\"description\":\"no name\"}')",
+      "Bash(curl -s -w \"\\\\nHTTP %{http_code}\\\\n\" -X POST http://localhost:8080/api/v1/colleges -H \"Content-Type: application/json\" -d '{\"collegeId\":9999,\"name\":\"Ignore Me\",\"description\":\"id should be ignored\"}')",
+      "Bash(curl -s -w \"\\\\nHTTP %{http_code}\\\\n\" -X POST http://localhost:8080/api/v1/users -H \"Content-Type: application/json\" -d '{\"firstName\":\"Alice\",\"lastName\":\"Smith\",\"email\":\"alice@example.com\",\"phone\":\"0501234567\",\"academicYear\":2,\"isBanned\":false,\"college\":101,\"studentNumber\":\"S001\"}')",
+      "Bash(curl -s -w \"\\\\nHTTP %{http_code}\\\\n\" http://localhost:8080/api/v1/users/101)",
+      "Bash(curl -s -w \"\\\\nHTTP %{http_code}\\\\n\" -X PUT http://localhost:8080/api/v1/users/101 -H \"Content-Type: application/json\" -d '{\"firstName\":\"Alice\",\"lastName\":\"Johnson\",\"email\":\"alice@example.com\",\"phone\":\"0501234567\",\"academicYear\":3,\"isBanned\":false,\"college\":101,\"studentNumber\":\"S001\"}')",
+      "Bash(curl -s -w \"\\\\nHTTP %{http_code}\\\\n\" -X PATCH http://localhost:8080/api/v1/users/101/ban)",
+      "Bash(curl -s -w \"\\\\nHTTP %{http_code}\\\\n\" \"http://localhost:8080/api/v1/users/me?email=alice@example.com\")",
+      "Bash(curl -s -w \"\\\\nHTTP %{http_code}\\\\n\" -X POST http://localhost:8080/api/v1/campaigns -H \"Content-Type: application/json\" -d '{\"title\":\"Beach Cleanup\",\"description\":\"Cleaning up local beach\",\"location\":\"Beach Road\",\"startDate\":\"2026-06-01\",\"endDate\":\"2026-06-02\",\"maxVolunteers\":50,\"status\":\"PENDING\",\"proposedBy\":102,\"category\":101}')",
+      "Bash(curl -s -w \"\\\\nHTTP %{http_code}\\\\n\" http://localhost:8080/api/v1/campaigns)",
+      "Bash(curl -s -w \"\\\\nHTTP %{http_code}\\\\n\" http://localhost:8080/api/v1/campaigns/101)",
+      "Bash(curl -s -w \"\\\\nHTTP %{http_code}\\\\n\" -X PATCH http://localhost:8080/api/v1/campaigns/101/status -H \"Content-Type: application/json\" -d '{\"status\":\"APPROVED\"}')",
+      "Bash(curl -s -w \"\\\\nHTTP %{http_code}\\\\n\" -X PATCH http://localhost:8080/api/v1/campaigns/101/status -H \"Content-Type: application/json\" -d '{\"status\":\"ONGOING\"}')",
+      "Bash(curl -s -w \"\\\\nHTTP %{http_code}\\\\n\" -X POST \"http://localhost:8080/api/v1/campaigns/101/apply?email=alice@example.com\" -H \"Content-Type: application/json\" -d '{\"status\":\"PENDING\",\"appliedAt\":\"2026-05-22T10:00:00\",\"motivationLetter\":\"I want to help\",\"student\":101,\"campaign\":101}')",
+      "Bash(curl -s -w \"\\\\nHTTP %{http_code}\\\\n\" http://localhost:8080/api/v1/campaigns/101/applications)",
+      "Bash(curl -s -w \"\\\\nHTTP %{http_code}\\\\n\" http://localhost:8080/api/v1/applications)",
+      "Bash(curl -s -w \"\\\\nHTTP %{http_code}\\\\n\" http://localhost:8080/api/v1/applications/101)",
+      "Bash(curl -s -w \"\\\\nHTTP %{http_code}\\\\n\" -X PATCH http://localhost:8080/api/v1/applications/101/status -H \"Content-Type: application/json\" -d '{\"status\":\"APPROVED\",\"appliedAt\":\"2026-05-22T10:00:00\",\"student\":101,\"campaign\":101}')",
+      "Bash(curl -s -w \"\\\\nHTTP %{http_code}\\\\n\" -X POST http://localhost:8080/api/v1/campaigns/101/photos -H \"Content-Type: application/json\" -d '{\"photoUrl\":\"/uploads/photos/test.jpg\",\"uploadedAt\":\"2026-05-22T10:00:00\",\"campaign\":101}')",
+      "Bash(curl -s -w \"\\\\nHTTP %{http_code}\\\\n\" http://localhost:8080/api/v1/campaigns/101/photos)",
+      "Bash(curl -s -w \"\\\\nHTTP %{http_code}\\\\n\" http://localhost:8080/api/v1/campaign-photos)",
+      "Bash(curl -s -w \"\\\\nHTTP %{http_code}\\\\n\" http://localhost:8080/api/v1/campaign-photos/101)",
+      "Bash(curl -s -w \"\\\\nHTTP %{http_code}\\\\n\" -X POST http://localhost:8080/api/v1/campaigns/101/progress -H \"Content-Type: application/json\" -d '{\"percentage\":40,\"notes\":\"Halfway there\",\"campaign\":101,\"updatedBy\":102}')",
+      "Bash(curl *)",
+      "Bash(./mvnw.cmd -DskipTests compile)",
+      "Bash(./mvnw.cmd -DskipTests clean compile)",
+      "Bash(curl.exe -s -o response.json -w \"HTTP:%{http_code}\\\\n\" http://localhost:8080/api/v1/campaigns)",
+      "Bash(curl.exe -s -I -L \"https://sbc-production.up.railway.app/uploads/photos/b1947501-3333-4b78-b206-9396ce306a29.jpg\")"
     ]
   }
 }

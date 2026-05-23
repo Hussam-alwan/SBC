@@ -6,6 +6,7 @@ import com.uni.impact.util.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +17,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final CollegeRepository collegeRepository;
     private final UserMapper userMapper;
+    private final PasswordEncoder passwordEncoder;
 
     public Page<User> findAll(Pageable pageable) {
         return userRepository.findAll(pageable);
@@ -31,19 +33,25 @@ public class UserService {
 
     @Transactional
     public User create(final UserRequestDTO userDTO) {
+        if (userDTO.getPassword() == null || userDTO.getPassword().isBlank()) {
+            throw new IllegalArgumentException("Password is required");
+        }
         if (emailExists(userDTO.getEmail())) {
             throw new IllegalArgumentException("Email already exists");
         }
         User user = userMapper.toEntity(userDTO);
+        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         applyRelations(user, userDTO);
         return userRepository.save(user);
     }
 
     @Transactional
     public User update(final Long userId, final UserRequestDTO userDTO) {
-
         User user = userRepository.findById(userId).orElseThrow(NotFoundException::new);
         userMapper.updateEntity(user, userDTO);
+        if (userDTO.getPassword() != null && !userDTO.getPassword().isBlank()) {
+            user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+        }
         applyRelations(user, userDTO);
         return userRepository.save(user);
     }
@@ -59,14 +67,15 @@ public class UserService {
                 .orElseThrow(() -> new NotFoundException("college not found"));
         user.setCollege(college);
     }
+
     public boolean emailExists(final String email) {
         return userRepository.existsByEmailIgnoreCase(email);
     }
 
     @Transactional
-    public User ban(Long id) {
+    public User ban(final Long id) {
         User user = userRepository.findById(id).orElseThrow(NotFoundException::new);
-        if (user.getIsBanned()) {
+        if (Boolean.TRUE.equals(user.getIsBanned())) {
             return user;
         }
         user.setIsBanned(true);

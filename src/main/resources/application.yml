@@ -24,7 +24,6 @@ spring:
             non_contextual_creation: true
         id:
           new_generator_mappings: true
-
 error:
   handling:
     http-status-in-json-response: true
@@ -43,3 +42,7 @@ springdoc:
 server:
   port: 8080
   forward-headers-strategy: framework
+
+app:
+  upload:
+    dir: ${APP_UPLOAD_DIR:uploads/photos}
